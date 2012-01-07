@@ -64,8 +64,6 @@ typedef struct framebuffer_device_t {
     /* max swap interval supported by this framebuffer */
     const int       maxSwapInterval;
 
-    const int       numFramebuffers;
-
     int reserved[8];
 
     /*
@@ -142,8 +140,6 @@ typedef struct framebuffer_device_t {
      * Returns 0 on success or -errno on error.
      */
     int (*enableScreen)(struct framebuffer_device_t* dev, int enable);
-
-    int (*lockBuffer)(struct framebuffer_device_t* dev, int index);
 
     void* reserved_proc[6];
 
