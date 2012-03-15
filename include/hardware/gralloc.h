@@ -79,14 +79,6 @@ enum {
     /* mask for the software usage bit-mask */
     GRALLOC_USAGE_HW_MASK               = 0x00011F00,
 
-#ifdef SAMSUNG_CODEC_SUPPORT
-    GRALLOC_USAGE_HW_FIMC1              = 0x01000000,
-    GRALLOC_USAGE_HW_ION                = 0x02000000,
-    GRALLOC_USAGE_YUV_ADDR              = 0x04000000,
-    /* SEC Private usage , for Overlay path at HWC */
-    GRALLOC_USAGE_HWC_HWOVERLAY         = 0x20000000,
-#endif
-
     /* buffer should be displayed full-screen on an external display when
      * possible
      */
@@ -150,7 +142,7 @@ typedef struct gralloc_module_t {
      */
     int (*unregisterBuffer)(struct gralloc_module_t const* module,
             buffer_handle_t handle);
-
+    
     /*
      * The (*lock)() method is called before a buffer is accessed for the 
      * specified usage. This call may block, for instance if the h/w needs
@@ -187,6 +179,7 @@ typedef struct gralloc_module_t {
             int l, int t, int w, int h,
             void** vaddr);
 
+    
     /*
      * The (*unlock)() method must be called after all changes to the buffer
      * are completed.
@@ -195,14 +188,6 @@ typedef struct gralloc_module_t {
     int (*unlock)(struct gralloc_module_t const* module,
             buffer_handle_t handle);
 
-#ifdef EXYNOS4210_ENHANCEMENTS
-    /*
-     * Unknown, used for samsung omx plugins
-     */
-
-    int (*getphys) (struct gralloc_module_t const* module,
-            buffer_handle_t handle, int *paddr);
-#endif
 
     /* reserved for future use */
     int (*perform)(struct gralloc_module_t const* module,

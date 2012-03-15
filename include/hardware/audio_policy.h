@@ -126,30 +126,6 @@ struct audio_policy {
      * Audio routing query functions
      */
 
-#ifdef WITH_QCOM_LPA
-    /* request an session appropriate for playback of the supplied stream type and
-     * parameters */
-    audio_io_handle_t (*get_session)(struct audio_policy *pol,
-                                    audio_stream_type_t stream,
-                                    uint32_t format,
-                                    audio_policy_output_flags_t flags,
-                                    int sessionId);
-
-    /* pause session created for LPA Playback */
-    void (*pause_session)(struct audio_policy *pol,
-                          audio_io_handle_t output,
-                          audio_stream_type_t stream);
-
-    /* resume session created for LPA Playback */
-    void (*resume_session)(struct audio_policy *pol,
-                          audio_io_handle_t output,
-                          audio_stream_type_t stream);
-
-    /* release session created for LPA Playback */
-    void (*release_session)(struct audio_policy *pol,
-                          audio_io_handle_t output);
-#endif
-
     /* request an output appriate for playback of the supplied stream type and
      * parameters */
     audio_io_handle_t (*get_output)(struct audio_policy *pol,
@@ -271,18 +247,6 @@ struct audio_policy_service_ops {
                                      uint32_t *pLatencyMs,
                                      audio_policy_output_flags_t flags);
 
-#ifdef WITH_QCOM_LPA
-    audio_io_handle_t (*open_session)(void *service,
-                                     uint32_t *pDevices,
-                                     uint32_t *pFormat,
-                                     audio_policy_output_flags_t flags,
-                                     int32_t stream,
-                                     int32_t sessionId);
-
-    audio_io_handle_t (*close_session)(void *service,
-                                      audio_io_handle_t output);
-#endif
-
     /* creates a special output that is duplicated to the two outputs passed as
      * arguments. The duplication is performed by
      * a special mixer thread in the AudioFlinger.
@@ -377,13 +341,6 @@ struct audio_policy_service_ops {
                         int session,
                         audio_io_handle_t src_output,
                         audio_io_handle_t dst_output);
-
-#ifdef QCOM_HARDWARE
-    /* set fm audio volume. */
-    int (*set_fm_volume)(void *service,
-                         float volume,
-                         int delay_ms);
-#endif
 };
 
 /**********************************************************************/
