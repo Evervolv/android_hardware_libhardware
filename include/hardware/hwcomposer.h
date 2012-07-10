@@ -143,6 +143,11 @@ typedef struct hwc_layer {
             /* blending to apply during composition */
             int32_t blending;
 
+#ifdef QCOM_HARDWARE
+            /* alpha value of the layer */
+            int32_t alpha;
+#endif
+
             /* area of the source to consider, the origin is the top-left corner of
              * the buffer */
             hwc_rect_t sourceCrop;
@@ -172,6 +177,14 @@ enum {
      * passed to (*prepare)() has changed by more than just the buffer handles.
      */
     HWC_GEOMETRY_CHANGED = 0x00000001,
+
+#ifdef QCOM_HARDWARE
+    /*
+     * HWC_SKIP_COMPOSITION is set by the HWC to indicate to SurfaceFlinger to
+     * skip composition for this iteration.
+     */
+    HWC_SKIP_COMPOSITION = 0x00000002
+#endif
 };
 
 /*
@@ -356,6 +369,14 @@ typedef struct hwc_composer_device {
      * availability: HWC_DEVICE_API_VERSION_0_3
      */
     hwc_methods_t const *methods;
+
+#ifdef QCOM_HARDWARE
+    /*
+     * This API is called by Surfaceflinger to inform the HWC about the
+     * custom events(external display).
+     */
+    void (*perform)(struct hwc_composer_device* dev, int event, int value);
+#endif
 
 } hwc_composer_device_t;
 
