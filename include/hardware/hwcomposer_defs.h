@@ -60,19 +60,7 @@ enum {
      * SurfaceFlinger will only honor this flag when the layer has no blending
      *
      */
-
-    HWC_HINT_CLEAR_FB       = 0x00000002,
-
-#ifdef QCOM_HARDWARE
-    /*
-     * HWC sets the HWC_HINT_DRAW_S3D_SS or HWC_HINT_DRAW_S3D_TB to tell
-     * Surfaceflinger that currently a S3D video layer is being drawn so
-     * convert the other layers to S3D format of Video while composing
-     *
-     */
-    HWC_HINT_DRAW_S3D_SIDE_BY_SIDE    = 0x00000004,
-    HWC_HINT_DRAW_S3D_TOP_BOTTOM      = 0x00000008
-#endif
+    HWC_HINT_CLEAR_FB       = 0x00000002
 };
 
 /*
